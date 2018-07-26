@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.TranslateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/from_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/language_label_size"
+        android:text="English"
+        app:layout_constraintRight_toLeftOf="@id/translate_direction"
+        android:layout_marginRight="10dp"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/to_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/language_label_size"
+        android:text="Russian"
+        app:layout_constraintLeft_toRightOf="@id/translate_direction"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/translate_direction"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/arrows"
+        app:layout_constraintTop_toTopOf="@id/from_language"
+        app:layout_constraintBottom_toBottomOf="@id/from_language"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/translated_edit"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:hint="@string/translate_edit_hint"
+        app:layout_constraintTop_toBottomOf="@id/translate_direction"/>
+
+    <TextView
+        android:id="@+id/translation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Translation"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/translated_edit"/>
+
+</android.support.constraint.ConstraintLayout>
