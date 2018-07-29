@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mockingbird.spinkevich.newwords.R;
+import com.mockingbird.spinkevich.newwords.presentation.presentation.feature.translate.TranslateFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         SimpleFragmentAdapter adapter = new SimpleFragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new TranslateFragment());
-        adapter.addFragment(new StudyFragment());
+//        adapter.addFragment(new StudyFragment());
         viewPager.setAdapter(adapter);
     }
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(getResources().getDrawable(R.drawable.ic_translate));
-        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_study));
+//        tabLayout.getTabAt(1).setIcon(getResources().getDrawable(R.drawable.ic_study));
     }
 }
