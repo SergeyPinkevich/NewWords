@@ -14,4 +14,28 @@ public class TranslateResponse {
 
     @SerializedName("text")
     private List<String> translation;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getTranslateDirection() {
+        return translateDirection;
+    }
+
+    public void setTranslateDirection(String translateDirection) {
+        this.translateDirection = translateDirection;
+    }
+
+    public List<String> getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(List<String> translation) {
+        this.translation = translation;
+    }
 }
