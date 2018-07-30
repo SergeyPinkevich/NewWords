@@ -8,6 +8,6 @@ public interface TranslateService {
 
     @POST("/api/v1.5/tr.json/translate")
     Single<TranslateResponse> translate(@Query("key") String apiKey,
-                                        @Query("lang") String translateDirection,
-                                        @Query("text") String text);
+                                                 @Query("lang") String translateDirection,
+                                                 @Query("text") String text);
 }

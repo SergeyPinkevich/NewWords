@@ -2,8 +2,10 @@ package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.tr
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
+import com.mockingbird.spinkevich.newwords.presentation.data.api.TranslateResponse;
 import com.mockingbird.spinkevich.newwords.presentation.data.db.WordEntity;
 import com.mockingbird.spinkevich.newwords.presentation.data.repository.TranslateRepository;
 import com.mockingbird.spinkevich.newwords.presentation.presentation.di.component.DaggerAppComponent;
@@ -11,7 +13,11 @@ import com.mockingbird.spinkevich.newwords.presentation.presentation.di.module.A
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
+
 public class TranslateViewModel extends AndroidViewModel {
+
+    private MutableLiveData<TranslateResponse> translateLiveData;
 
     @Inject
     TranslateRepository translateRepository;
@@ -28,7 +34,14 @@ public class TranslateViewModel extends AndroidViewModel {
         translateRepository.insert(wordEntity);
     }
 
-    public void translate(String translationDirection, String text) {
-        translateRepository.translate(translationDirection, text);
+    public Single<TranslateResponse> translate(String translationDirection, String text) {
+        return translateRepository.translate(translationDirection, text);
+    }
+
+    public MutableLiveData<TranslateResponse> getTranslateLiveData() {
+        if (translateLiveData == null) {
+            translateLiveData = new MutableLiveData();
+        }
+        return translateLiveData;
     }
 }

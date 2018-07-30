@@ -7,7 +7,7 @@ buildscript {
         rx_java_version = '2.1.0'
         rx_android_version = '2.0.1'
         retrofit_version = '2.3.0'
-        room_version = '1.0.0'
+        room_version = '1.1.0'
         lifecycle_version = '1.1.0'
         toasty_version = '1.2.8'
         butterknife_version = '8.8.1'
@@ -30,6 +30,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
     }
 }
 

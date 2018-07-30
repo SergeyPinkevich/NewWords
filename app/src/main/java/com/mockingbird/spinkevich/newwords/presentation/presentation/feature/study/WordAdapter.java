@@ -38,6 +38,9 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        if (words == null) {
+            return 0;
+        }
         return words.size();
     }
 

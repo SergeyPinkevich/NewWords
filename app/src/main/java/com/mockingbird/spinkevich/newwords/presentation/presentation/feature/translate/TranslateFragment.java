@@ -1,6 +1,5 @@
 package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.translate;
 
-
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mockingbird.spinkevich.newwords.R;
+import com.mockingbird.spinkevich.newwords.presentation.data.api.TranslateResponse;
 import com.mockingbird.spinkevich.newwords.presentation.data.converter.TranslateHelper;
 import com.mockingbird.spinkevich.newwords.presentation.data.db.WordEntity;
 
@@ -24,6 +24,8 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +61,9 @@ public class TranslateFragment extends Fragment {
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
         setupEditTextForTranslationedText();
 
+//        final Observer<TranslateResponse> translateObserver = response -> System.out.print(response);
+//        translateViewModel.getTranslateLiveData().observe(this, translateObserver);
+
         addWordButton.setOnClickListener(view1 -> {
             translateViewModel.insert(createWord());
         });
@@ -70,12 +75,12 @@ public class TranslateFragment extends Fragment {
         WordEntity wordEntity = new WordEntity();
         wordEntity.setWord(textForTranslation.getText().toString());
         wordEntity.setTranslation(translation.getText().toString());
-        wordEntity.setTranslateDirection(getTranslateDirecton());
+        wordEntity.setTranslateDirection(getTranslateDirection());
         wordEntity.setTimeStamp(Calendar.getInstance().getTime());
         return wordEntity;
     }
 
-    private String getTranslateDirecton() {
+    private String getTranslateDirection() {
         return TranslateHelper.getLanguageCode(fromLanguage.getText().toString()) +
                 "-" +
                 TranslateHelper.getLanguageCode(toLanguage.getText().toString());
@@ -103,8 +108,18 @@ public class TranslateFragment extends Fragment {
             }
 
             private void handleString(String s) {
-                translateViewModel.translate(getTranslateDirecton(), s);
+                translateViewModel.translate(getTranslateDirection(), s)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                data -> showData(data),
+                                error -> System.out.print(error)
+                        );
             }
         });
+    }
+
+    private void showData(TranslateResponse data) {
+        translation.setText(data.getTranslation().get(0));
     }
 }
