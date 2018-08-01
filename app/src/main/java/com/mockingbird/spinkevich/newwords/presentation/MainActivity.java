@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        // we went from widget
+        if (getIntent() != null && getIntent().getAction() == null) {
+            viewPager.setCurrentItem(1);
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {

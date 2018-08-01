@@ -1,6 +1,5 @@
 package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.translate;
 
-import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mockingbird.spinkevich.newwords.R;
@@ -26,6 +24,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -50,9 +49,6 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
     @BindView(R.id.add_word)
     FloatingActionButton addWordButton;
 
-    private ListView languagesList;
-    private AlertDialog chooseLanguageDialog;
-
     private TranslateViewModel translateViewModel;
 
     public TranslateFragment() {
@@ -69,7 +65,15 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
         setupEditTextForTranslationedText();
 
-        addWordButton.setOnClickListener(__ -> translateViewModel.insert(createWordFromUI()));
+        addWordButton.setOnClickListener(__ -> {
+                    WordEntity wordEntity = createWordFromUI();
+                    if (!wordEntity.getTranslation().isEmpty()) {
+                        translateViewModel.insert(wordEntity);
+                    } else {
+                        Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
+                    }
+                }
+        );
 
         fromLanguage.setOnClickListener(__ -> {
             ChooseLanguageFragment dialog = new ChooseLanguageFragment();
