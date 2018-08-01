@@ -12,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,7 +32,10 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TranslateFragment extends Fragment {
+public class TranslateFragment extends Fragment implements ChooseLanguageFragment.OnLanguagesSelected {
+
+    public static final int FROM_LANGUAGE = 1;
+    public static final int TO_LANGUAGE = 2;
 
     @BindView(R.id.from_language)
     TextView fromLanguage;
@@ -67,30 +69,23 @@ public class TranslateFragment extends Fragment {
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
         setupEditTextForTranslationedText();
 
-        createLanguagesListView();
-        createDialog();
+        addWordButton.setOnClickListener(__ -> translateViewModel.insert(createWordFromUI()));
 
-        addWordButton.setOnClickListener(__ -> translateViewModel.insert(createWord()));
-        fromLanguage.setOnClickListener(__ -> chooseLanguageDialog.show());
-        toLanguage.setOnClickListener(__ -> chooseLanguageDialog.show());
-        languagesList.setOnItemClickListener((adapterView, view1, position, l) -> {
-            translateViewModel.setFromLanguage("");
-            toLanguage.setText(TranslateHelper.getLanguages().get(position));
-            chooseLanguageDialog.dismiss();
+        fromLanguage.setOnClickListener(__ -> {
+            ChooseLanguageFragment dialog = new ChooseLanguageFragment();
+            dialog.setTargetFragment(TranslateFragment.this, FROM_LANGUAGE);
+            dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
+        });
+        toLanguage.setOnClickListener(__ -> {
+            ChooseLanguageFragment dialog = new ChooseLanguageFragment();
+            dialog.setTargetFragment(TranslateFragment.this, TO_LANGUAGE);
+            dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
         });
 
         return view;
     }
 
-    private void createDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setCancelable(true);
-        builder.setView(languagesList);
-        builder.setTitle(R.string.choose_language);
-        chooseLanguageDialog = builder.create();
-    }
-
-    private WordEntity createWord() {
+    private WordEntity createWordFromUI() {
         WordEntity wordEntity = new WordEntity();
         wordEntity.setWord(textForTranslation.getText().toString());
         wordEntity.setTranslation(translation.getText().toString());
@@ -142,9 +137,17 @@ public class TranslateFragment extends Fragment {
         translation.setText(data.getTranslation().get(0));
     }
 
-    private void createLanguagesListView() {
-        languagesList = new ListView(getContext());
-        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, TranslateHelper.getLanguages());
-        languagesList.setAdapter(adapter);
+    @Override
+    public void selectLanguage(String language, int result) {
+        switch (result) {
+            case FROM_LANGUAGE:
+                fromLanguage.setText(language);
+                translateViewModel.setFromLanguage(language);
+                break;
+            case TO_LANGUAGE:
+                toLanguage.setText(language);
+                translateViewModel.setToLanguage(language);
+                break;
+        }
     }
 }

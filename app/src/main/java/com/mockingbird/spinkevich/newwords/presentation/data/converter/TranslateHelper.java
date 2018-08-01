@@ -2,6 +2,7 @@ package com.mockingbird.spinkevich.newwords.presentation.data.converter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class TranslateHelper {
@@ -9,7 +10,7 @@ public class TranslateHelper {
     private final static HashMap<String, String> LANGUAGE_MAP;
 
     static {
-        LANGUAGE_MAP = new HashMap<>();
+        LANGUAGE_MAP = new LinkedHashMap<>();
         LANGUAGE_MAP.put("Azerbaijan", "az");
         LANGUAGE_MAP.put("Afrikaans", "af");
         LANGUAGE_MAP.put("Albanian", "sq");
