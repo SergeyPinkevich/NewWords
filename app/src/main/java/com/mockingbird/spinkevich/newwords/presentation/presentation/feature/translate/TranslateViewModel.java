@@ -19,6 +19,9 @@ public class TranslateViewModel extends AndroidViewModel {
 
     private MutableLiveData<TranslateResponse> translateLiveData;
 
+    private String fromLanguage;
+    private String toLanguage;
+
     @Inject
     TranslateRepository translateRepository;
 
@@ -43,5 +46,21 @@ public class TranslateViewModel extends AndroidViewModel {
             translateLiveData = new MutableLiveData();
         }
         return translateLiveData;
+    }
+
+    public String getFromLanguage() {
+        return fromLanguage;
+    }
+
+    public void setFromLanguage(String fromLanguage) {
+        this.fromLanguage = fromLanguage;
+    }
+
+    public String getToLanguage() {
+        return toLanguage;
+    }
+
+    public void setToLanguage(String toLanguage) {
+        this.toLanguage = toLanguage;
     }
 }

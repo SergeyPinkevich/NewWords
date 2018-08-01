@@ -1,6 +1,8 @@
 package com.mockingbird.spinkevich.newwords.presentation.data.converter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TranslateHelper {
 
@@ -105,5 +107,9 @@ public class TranslateHelper {
 
     public static String getLanguageCode(String language) {
         return LANGUAGE_MAP.get(language);
+    }
+
+    public static List<String> getLanguages() {
+        return new ArrayList<>(LANGUAGE_MAP.keySet());
     }
 }

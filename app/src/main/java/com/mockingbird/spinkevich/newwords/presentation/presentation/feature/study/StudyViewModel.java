@@ -24,4 +24,8 @@ public class StudyViewModel extends AndroidViewModel {
     public LiveData<List<WordEntity>> getWords() {
         return words;
     }
+
+    public void deleteAllWords() {
+        studyRepository.deleteAllWords();
+    }
 }

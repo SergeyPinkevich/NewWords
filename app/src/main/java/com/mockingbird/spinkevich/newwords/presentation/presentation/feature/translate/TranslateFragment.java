@@ -1,5 +1,6 @@
 package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.translate;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +12,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mockingbird.spinkevich.newwords.R;
@@ -45,6 +48,9 @@ public class TranslateFragment extends Fragment {
     @BindView(R.id.add_word)
     FloatingActionButton addWordButton;
 
+    private ListView languagesList;
+    private AlertDialog chooseLanguageDialog;
+
     private TranslateViewModel translateViewModel;
 
     public TranslateFragment() {
@@ -61,14 +67,27 @@ public class TranslateFragment extends Fragment {
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
         setupEditTextForTranslationedText();
 
-//        final Observer<TranslateResponse> translateObserver = response -> System.out.print(response);
-//        translateViewModel.getTranslateLiveData().observe(this, translateObserver);
+        createLanguagesListView();
+        createDialog();
 
-        addWordButton.setOnClickListener(view1 -> {
-            translateViewModel.insert(createWord());
+        addWordButton.setOnClickListener(__ -> translateViewModel.insert(createWord()));
+        fromLanguage.setOnClickListener(__ -> chooseLanguageDialog.show());
+        toLanguage.setOnClickListener(__ -> chooseLanguageDialog.show());
+        languagesList.setOnItemClickListener((adapterView, view1, position, l) -> {
+            translateViewModel.setFromLanguage("");
+            toLanguage.setText(TranslateHelper.getLanguages().get(position));
+            chooseLanguageDialog.dismiss();
         });
 
         return view;
+    }
+
+    private void createDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(true);
+        builder.setView(languagesList);
+        builder.setTitle(R.string.choose_language);
+        chooseLanguageDialog = builder.create();
     }
 
     private WordEntity createWord() {
@@ -121,5 +140,11 @@ public class TranslateFragment extends Fragment {
 
     private void showData(TranslateResponse data) {
         translation.setText(data.getTranslation().get(0));
+    }
+
+    private void createLanguagesListView() {
+        languagesList = new ListView(getContext());
+        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, TranslateHelper.getLanguages());
+        languagesList.setAdapter(adapter);
     }
 }

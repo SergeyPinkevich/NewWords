@@ -3,6 +3,7 @@ package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.st
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ public class StudyFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.delete_words)
+    FloatingActionButton deleteWordsButton;
 
     private StudyViewModel studyViewModel;
     private WordAdapter adapter;
@@ -48,6 +51,8 @@ public class StudyFragment extends Fragment {
         studyViewModel = ViewModelProviders.of(this).get(StudyViewModel.class);
         final Observer<List<WordEntity>> observer = wordEntities -> adapter.setWords(wordEntities);
         studyViewModel.getWords().observe(this, observer);
+
+        deleteWordsButton.setOnClickListener((button) -> studyViewModel.deleteAllWords());
 
         return view;
     }

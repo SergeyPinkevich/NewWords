@@ -28,4 +28,7 @@ public interface WordDao {
 
     @Delete
     void delete(WordEntity word);
+
+    @Query("DELETE FROM word")
+    void deleteAll();
 }

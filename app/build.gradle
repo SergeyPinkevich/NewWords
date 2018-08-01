@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:support-v4:27.1.1'
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
