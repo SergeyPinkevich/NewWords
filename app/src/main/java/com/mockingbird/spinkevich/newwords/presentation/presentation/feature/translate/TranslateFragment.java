@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.mockingbird.spinkevich.newwords.R;
 import com.mockingbird.spinkevich.newwords.presentation.data.api.TranslateResponse;
 import com.mockingbird.spinkevich.newwords.presentation.data.converter.TranslateHelper;
@@ -48,6 +50,8 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
     TextView translation;
     @BindView(R.id.add_word)
     FloatingActionButton addWordButton;
+    @BindView(R.id.ad_view)
+    AdView adView;
 
     private TranslateViewModel translateViewModel;
 
@@ -69,6 +73,13 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                     WordEntity wordEntity = createWordFromUI();
                     if (!wordEntity.getTranslation().isEmpty()) {
                         translateViewModel.insert(wordEntity);
+                        // Create an ad request. Check logcat output for the hashed device ID to
+                        // get test ads on a physical device. e.g.
+                        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+                        AdRequest adRequest = new AdRequest.Builder()
+                                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                                .build();
+                        adView.loadAd(adRequest);
                     } else {
                         Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
                     }

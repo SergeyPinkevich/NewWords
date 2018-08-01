@@ -25,4 +25,14 @@
         android:textColor="#000"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/widget_translate_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/appwidget_word"
+        android:text="en-ru"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="italic" />
+
 </LinearLayout>
