@@ -86,6 +86,9 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                 }
         );
 
+        fromLanguage.setText(translateViewModel.getFromLanguage());
+        toLanguage.setText(translateViewModel.getToLanguage());
+
         fromLanguage.setOnClickListener(__ -> {
             ChooseLanguageFragment dialog = new ChooseLanguageFragment();
             dialog.setTargetFragment(TranslateFragment.this, FROM_LANGUAGE);
