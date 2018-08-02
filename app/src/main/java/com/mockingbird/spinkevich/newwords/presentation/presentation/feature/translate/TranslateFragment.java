@@ -80,6 +80,7 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                         translateViewModel.insert(wordEntity);
                         showAdvertisement();
                         updateWidget();
+                        Toasty.success(getContext(), getResources().getString(R.string.translation_success)).show();
                     } else {
                         Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
                     }
@@ -140,15 +141,19 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
             }
 
             private void handleString(String s) {
-                translateViewModel.translate(getTranslateDirection(), s)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                data -> showData(data),
-                                error -> System.out.print(error)
-                        );
+                translate(s);
             }
         });
+    }
+
+    private void translate(String text) {
+        translateViewModel.translate(getTranslateDirection(), text)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        data -> showData(data),
+                        error -> System.out.print(error)
+                );
     }
 
     private void showData(TranslateResponse data) {
@@ -167,6 +172,7 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                 translateViewModel.setToLanguage(language);
                 break;
         }
+        translate(textForTranslation.getText().toString());
     }
 
     private void showAdvertisement() {

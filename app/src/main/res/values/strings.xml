@@ -7,5 +7,7 @@
     <string name="appwidget_translation">translation</string>
     <string name="appwidget_translation_direction">translation direction</string>
     <string name="add_widget">Add widget</string>
+    <string name="translation_success">Word was added to study list</string>
+    <string name="translation_exists">Word already exists in study list</string>
     <string name="translation_error">Can not save to study list. Translation is empty</string>
 </resources>
