@@ -82,9 +82,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
-//task installRelease(type: Exec, dependsOn: 'assembleRelease') {
-//    description "Install and run app release version"
-//    commandLine 'adb', 'shell', 'monkey', '-p', 'com.mockingbird.spinkevich.newwords', "-c", "android.intent.category.LAUNCHER", "1"
-//}
+task installRelease(type: Exec, dependsOn: 'assembleRelease') {
+    description "Install and run app release version"
+    commandLine 'adb', 'shell', 'monkey', '-p', 'com.mockingbird.spinkevich.newwords', "-c", "android.intent.category.LAUNCHER", "1"
+}
 
 
