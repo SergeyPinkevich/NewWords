@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/paper"
-    android:padding="10dp"
+    android:padding="@dimen/medium_large_padding"
     android:orientation="vertical">
 
     <TextView
@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/appwidget_word"
         android:text="hello"
-        android:textColor="#000"
-        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/widget_text"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/appwidget_word"
         android:text="привет"
-        android:textColor="#000"
-        android:textSize="24sp" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/widget_text" />
 
     <TextView
         android:id="@+id/widget_translate_direction"
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/appwidget_word"
         android:text="en-ru"
-        android:textColor="#000"
-        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/widget_text"
         android:textStyle="italic" />
 
 </LinearLayout>

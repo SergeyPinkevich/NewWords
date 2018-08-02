@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="language_label_size">22sp</dimen>
+    <dimen name="viewpager_margin">102dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin_with_padding">8dp</dimen>
+    <dimen name="label_margin">10dp</dimen>
+    <dimen name="icon_size">40dp</dimen>
+    <dimen name="translate_height">100dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="item_text">20sp</dimen>
+    <dimen name="direction_text">18sp</dimen>
+    <dimen name="widget_text">24sp</dimen>
+    <dimen name="medium_large_padding">10dp</dimen>
 </resources>

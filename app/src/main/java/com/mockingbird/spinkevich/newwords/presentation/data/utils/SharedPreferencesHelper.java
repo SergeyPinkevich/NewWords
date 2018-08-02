@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 public class SharedPreferencesHelper {
 
-    public static final String FILE_NAME = "translate_direction";
     public static final String FROM_LANG = "from";
     public static final String TO_LANG = "to";
 

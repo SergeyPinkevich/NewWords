@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="@dimen/medium_padding"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.presentation.feature.translate.TranslateFragment">
 
@@ -14,7 +14,7 @@
         android:textSize="@dimen/language_label_size"
         android:text="English"
         app:layout_constraintRight_toLeftOf="@id/translate_direction"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="@dimen/label_margin"/>
 
     <TextView
         android:id="@+id/to_language"
@@ -23,12 +23,12 @@
         android:textSize="@dimen/language_label_size"
         android:text="Russian"
         app:layout_constraintLeft_toRightOf="@id/translate_direction"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="@dimen/label_margin"/>
 
     <ImageView
         android:id="@+id/translate_direction"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:src="@drawable/arrows"
         app:layout_constraintTop_toTopOf="@id/from_language"
         app:layout_constraintBottom_toBottomOf="@id/from_language"
@@ -38,7 +38,7 @@
     <EditText
         android:id="@+id/translated_edit"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/translate_height"
         android:gravity="top"
         android:hint="@string/translate_edit_hint"
         app:layout_constraintTop_toBottomOf="@id/translate_direction"/>
@@ -47,8 +47,8 @@
         android:id="@+id/translation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:layout_marginLeft="4dp"
+        android:textSize="@dimen/language_label_size"
+        android:layout_marginLeft="@dimen/small_margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/translated_edit"/>
 
@@ -57,7 +57,7 @@
         android:src="@drawable/ic_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/fab_margin_with_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
