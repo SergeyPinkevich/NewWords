@@ -1,6 +1,9 @@
 package com.mockingbird.spinkevich.newwords.presentation.presentation.feature.translate;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -21,6 +25,7 @@ import com.mockingbird.spinkevich.newwords.R;
 import com.mockingbird.spinkevich.newwords.presentation.data.api.TranslateResponse;
 import com.mockingbird.spinkevich.newwords.presentation.data.converter.TranslateHelper;
 import com.mockingbird.spinkevich.newwords.presentation.data.db.WordEntity;
+import com.mockingbird.spinkevich.newwords.presentation.presentation.feature.widget.WordWidget;
 
 import java.util.Calendar;
 
@@ -73,13 +78,8 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                     WordEntity wordEntity = createWordFromUI();
                     if (!wordEntity.getTranslation().isEmpty()) {
                         translateViewModel.insert(wordEntity);
-                        // Create an ad request. Check logcat output for the hashed device ID to
-                        // get test ads on a physical device. e.g.
-                        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-                        AdRequest adRequest = new AdRequest.Builder()
-                                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                                .build();
-                        adView.loadAd(adRequest);
+                        showAdvertisement();
+                        updateWidget();
                     } else {
                         Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
                     }
@@ -164,5 +164,24 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
                 translateViewModel.setToLanguage(language);
                 break;
         }
+    }
+
+    private void showAdvertisement() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
+    }
+
+    private void updateWidget() {
+        Context context = getContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.word_widget);
+        ComponentName thisWidget = new ComponentName(context, WordWidget.class);
+        WordEntity word = createWordFromUI();
+        remoteViews.setTextViewText(R.id.widget_word, word.getWord());
+        remoteViews.setTextViewText(R.id.widget_translation, word.getTranslation());
+        remoteViews.setTextViewText(R.id.widget_translate_direction, word.getTranslateDirection());
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
     }
 }
