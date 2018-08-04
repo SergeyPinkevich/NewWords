@@ -17,7 +17,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @TypeConverters(DateConverter.class)
 public interface WordDao {
 
-    @Query("SELECT * FROM word")
+    @Query("SELECT * FROM word ORDER BY word.timeStamp DESC")
     LiveData<List<WordEntity>> getAll();
 
     @Query("SELECT COUNT(*) from word")

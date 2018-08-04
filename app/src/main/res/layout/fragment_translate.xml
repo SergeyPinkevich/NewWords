@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/language_label_size"
-        android:text="English"
+        android:text="@string/from_lang"
         app:layout_constraintRight_toLeftOf="@id/translate_direction"
         android:layout_marginRight="@dimen/label_margin"/>
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/language_label_size"
-        android:text="Russian"
+        android:text="@string/to_lang"
         app:layout_constraintLeft_toRightOf="@id/translate_direction"
         android:layout_marginLeft="@dimen/label_margin"/>
 
@@ -30,6 +30,7 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:src="@drawable/arrows"
+        android:contentDescription="@string/translate_direction_content_description"
         app:layout_constraintTop_toTopOf="@id/from_language"
         app:layout_constraintBottom_toBottomOf="@id/from_language"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin_with_padding"
+        android:contentDescription="@string/add_word_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 

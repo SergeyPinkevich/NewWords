@@ -11,13 +11,13 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="@dimen/item_text"
-        android:text="word" />
+        android:text="@string/word_example" />
 
     <TextView
         android:id="@+id/translation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="translation"
+        android:text="@string/translation_example"
         android:textSize="@dimen/item_text"
         app:layout_constraintTop_toBottomOf="@id/word"/>
 
@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/direction_text"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="EN-RU" />
+        android:text="@string/translation_direction_example" />
 
 </android.support.constraint.ConstraintLayout>

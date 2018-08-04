@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +30,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -53,8 +53,6 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
     EditText textForTranslation;
     @BindView(R.id.translation)
     TextView translation;
-    @BindView(R.id.add_word)
-    FloatingActionButton addWordButton;
     @BindView(R.id.ad_view)
     AdView adView;
 
@@ -74,34 +72,37 @@ public class TranslateFragment extends Fragment implements ChooseLanguageFragmen
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
         setupEditTextForTranslationedText();
 
-        addWordButton.setOnClickListener(__ -> {
-                    WordEntity wordEntity = createWordFromUI();
-                    if (!wordEntity.getTranslation().isEmpty()) {
-                        translateViewModel.insert(wordEntity);
-                        showAdvertisement();
-                        updateWidget();
-                        Toasty.success(getContext(), getResources().getString(R.string.translation_success)).show();
-                    } else {
-                        Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
-                    }
-                }
-        );
-
         fromLanguage.setText(translateViewModel.getFromLanguage());
         toLanguage.setText(translateViewModel.getToLanguage());
 
-        fromLanguage.setOnClickListener(__ -> {
-            ChooseLanguageFragment dialog = new ChooseLanguageFragment();
-            dialog.setTargetFragment(TranslateFragment.this, FROM_LANGUAGE);
-            dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
-        });
-        toLanguage.setOnClickListener(__ -> {
-            ChooseLanguageFragment dialog = new ChooseLanguageFragment();
-            dialog.setTargetFragment(TranslateFragment.this, TO_LANGUAGE);
-            dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
-        });
-
         return view;
+    }
+
+    @OnClick(R.id.add_word)
+    public void addWord(View view) {
+        WordEntity wordEntity = createWordFromUI();
+        if (!wordEntity.getTranslation().isEmpty()) {
+            translateViewModel.insert(wordEntity);
+            showAdvertisement();
+            updateWidget();
+            Toasty.success(getContext(), getResources().getString(R.string.translation_success)).show();
+        } else {
+            Toasty.error(getContext(), getResources().getString(R.string.translation_error)).show();
+        }
+    }
+
+    @OnClick(R.id.from_language)
+    public void setFromLanguage(View view) {
+        ChooseLanguageFragment dialog = new ChooseLanguageFragment();
+        dialog.setTargetFragment(TranslateFragment.this, FROM_LANGUAGE);
+        dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
+    }
+
+    @OnClick(R.id.to_language)
+    public void setToLanguage(View view) {
+        ChooseLanguageFragment dialog = new ChooseLanguageFragment();
+        dialog.setTargetFragment(TranslateFragment.this, TO_LANGUAGE);
+        dialog.show(getFragmentManager(), ChooseLanguageFragment.TAG);
     }
 
     private WordEntity createWordFromUI() {

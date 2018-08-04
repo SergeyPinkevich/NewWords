@@ -6,8 +6,16 @@
     <string name="appwidget_word">word</string>
     <string name="appwidget_translation">translation</string>
     <string name="appwidget_translation_direction">translation direction</string>
+    <string name="word_example">example</string>
+    <string name="translation_example">пример</string>
+    <string name="translation_direction_example">en-ru</string>
     <string name="add_widget">Add widget</string>
+    <string name="from_lang">English</string>
+    <string name="to_lang">Russian</string>
+    <string name="translate_direction_content_description">Translate direction</string>
+    <string name="add_word_content_description">Add word</string>
+    <string name="delete_words_content_description">Delete words</string>
     <string name="translation_success">Word was added to study list</string>
     <string name="translation_exists">Word already exists in study list</string>
-    <string name="translation_error">Can not save to study list. Translation is empty</string>
+    <string name="translation_error">Translation is empty</string>
 </resources>
